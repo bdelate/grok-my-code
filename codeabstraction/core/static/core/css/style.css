@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 15px;
+}
+
+body {
+    font-family: monospace;
+    box-sizing: border-box;
+    background-color: #405861;
+    color: #fff;
+}
+
+.container {
+    margin: 6rem 2rem 2rem 2rem;
+}
+
+.hero {
+    margin-top: 4rem;
+    height: 600px;
+    background: linear-gradient(to right,
+                                rgba(119, 170, 173, 0.9),
+                                rgba(136, 138, 199, 0.5)),
+                url('/static/core/img/home-banner.png');
+    background-size: cover;
+    border-bottom: 2px solid #78aaad;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav {
+    top: 0;
+    padding-top: 1rem;
+    background-color: #213a44;
+    border-bottom: 1px solid #78aaad;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-item {
+    height: 3rem;
+    font-size: 1.7rem;
+    font-weight: bold;
+    align-self: center;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.row-item {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+h2 {
+    padding: 0.5rem;
+    width: 100%;
+    border-bottom: 3px solid #78aaad;
+}
+
+a:link,
+a:visited {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:hover,
+.active-link {
+    border-bottom: 2px solid #fff;
+}
