@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 15px;
+}
+
+body {
+    font-family: monospace;
+    box-sizing: border-box;
+    background-color: #405861;
+    color: #fff;
+}
+
+p {
+    padding-top: 1rem;
+}
+
+p:last-child {
+    padding-bottom: 1rem;
+}
+
+.container {
+    margin: 6rem 2rem 2rem 2rem;
+}
+
+.hero {
+    margin-top: 4rem;
+    height: 600px;
+    background: linear-gradient(to right,
+                                rgba(119, 170, 173, 0.9),
+                                rgba(136, 138, 199, 0.5)),
+                url('/static/core/img/home-banner.png');
+    background-size: cover;
+    border-bottom: 2px solid #78aaad;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 1.5rem;
+    color: #000;
+}
+
+.nav {
+    top: 0;
+    padding-top: 1rem;
+    background-color: #213a44;
+    border-bottom: 1px solid #78aaad;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-item {
+    height: 3rem;
+    font-size: 1.7rem;
+    font-weight: bold;
+    align-self: center;
+}
+
+.row {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.row-item {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.row-item-small {
+    flex: 0 0 40%;
+}
+
+.row-item:not(last-child) {
+    margin-right: 2rem;
+}
+
+.section-border {
+    border: 1px solid #78aaad;
+    border-radius: 2px;
+    padding: 1rem;
+}
+
+a:link,
+a:visited {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:hover,
+.active-link {
+    border-bottom: 2px solid #78aaad;
+}
+
+.link {
+    border-bottom: 2px dotted #78aaad;
+}
+
+.cloud-logo {
+    max-width: 150px;
+    max-height: 60px;
+    margin: 0.5rem;
+}
+
+.margin-left {
+    margin-left: 2rem;
+}
+
+.tab {
+    display: block;
+    transition: opacity 2s;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    padding-left: 1rem;
+}
+
+.tab-button {
+    display: none;
+}
+
+.tab-button:checked + .tab-label {
+    background-color: #78aaad;
+}
+
+#tab-button-1:checked ~ #tab-content-1,
+#tab-button-2:checked ~ #tab-content-2,
+#tab-button-3:checked ~ #tab-content-3 {
+    opacity: 1;
+    height: auto;
+}
+
+.tab-label {
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    border: 1px solid #78aaad;
+    border-radius: 2px;
+}
+
+.tab-label:hover {
+  background-color: #78aaad;
+  cursor: pointer;
+}

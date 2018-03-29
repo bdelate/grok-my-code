@@ -1,0 +1,120 @@
+{% extends parent_template|default:"core/base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <header class="hero">
+        <div class="row">
+            <h1>Full Stack Web Development</h1>
+        </div>
+        <div class="row">
+            <span>Passionate about design patterns, data structures and all things code.</span>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="row-item row-item-small section-border">
+                <div class="row">
+                    <img class="cloud-logo" src="{% static 'core/img/linux.svg' %}" title="Linux" alt="Linux">
+                </div>
+                <div class="row">
+                    <img class="cloud-logo" src="{% static 'core/img/django.svg' %}" title="Django" alt="Django">
+                    <img class="cloud-logo" src="{% static 'core/img/django-rest-framework.png' %}"
+                    title="Django Rest Framework" alt="Django Rest Framework">
+                </div>
+                <div class="row">
+                    <img class="cloud-logo" src="{% static 'core/img/react.svg' %}" title="React" alt="React">
+                    <img class="cloud-logo" src="{% static 'core/img/python.svg' %}" title="Python" alt="Python">
+                    <img class="cloud-logo" src="{% static 'core/img/javascript.svg' %}" title="Javascript" alt="Javascript">
+                </div>
+                <div class="row">
+                    <img class="cloud-logo" src="{% static 'core/img/sass.svg' %}" title="Sass" alt="Sass">
+                    <img class="cloud-logo" src="{% static 'core/img/postgresql.svg' %}" title="PostgreSQL" alt="PostgreSQL">
+                </div>
+                <div class="row">
+                    <img class="cloud-logo" src="{% static 'core/img/css3-html5.svg' %}" title="CSS3 and HTML5" alt="CSS3 and HTML5">
+                </div>
+            </div>
+            <div class="row-item">
+                <input id="tab-button-1" class="tab-button" type="radio" name="tabs" checked>
+                <label for="tab-button-1" id="tab-label-1" class="tab-label">Overview</label>
+                <input id="tab-button-2" class="tab-button" type="radio" name="tabs">
+                <label for="tab-button-2" id="tab-label-2" class="tab-label">Skill Set</label>
+                <input id="tab-button-3" class="tab-button" type="radio" name="tabs">
+                <label for="tab-button-3" id="tab-label-3" class="tab-label">About Me</label>
+                <hr />
+                <div id="tab-content-1" class="tab">
+                    <p>Code Abstraction is a place I use to showcase my development.</p>
+                    <p>
+                        Projects are listed in the portfolio section with links to a page for each project.
+                    </p>
+                    <p>
+                        Each project page contains specifics like which technologies were used along
+                        with code snippets and explanations of any interesting techniques used in development.
+                    </p>
+                    <p>Links to live demos of each project are provided along with links to their github repos.</p>
+                </div>
+                <div id="tab-content-2" class="tab">
+                    <p>
+                        I am comfortable working on both the front and back end of a web stack,
+                        with my core expertise leaning towards the back end.
+                    </p>
+                    <p>
+                        My main focus is on creating RESTful API's along with React based front ends.
+                    </p>
+                    <p>My skill set in terms of expertise is as follows:</p>
+                    <p>
+                        <h3>Core:</h3>
+                    </p>
+                    <p>
+                        <ul class="margin-left">
+                            <li>Python</li>
+                            <li>Django</li>
+                            <li>Django REST Framework</li>
+                            <li>Javascript</li>
+                            <li>React</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <h3>Secondary:</h3>
+                    </p>
+                    <p>
+                        <ul class="margin-left">
+                            <li>Linux</li>
+                            <li>PostgreSQL and SQL in general</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <h3>Tertiary:</h3>
+                    </p>
+                    <p>
+                        <ul class="margin-left">
+                            <li>HTML</li>
+                            <li>CSS and Sass</li>
+                            <li>UI and UX</li>
+                        </ul>
+                    </p>
+                </div>
+                <div id="tab-content-3" class="tab">
+                    <p>
+                        My name is Brendon Delate and I am part software developer, part entrepreneur.
+                    </p>
+                    <p>
+                        I wrote my first line of code when I was 15 and was immediately hooked. Once the bug had bitten,
+                        I spent high school coding in Basic, then Turbo Pascal and finally Visual Basic.
+                    </p>
+                    <p>In university I completed a Computer Science degree during which time I obtained 7 distinctions and
+                        was placed on the Deans list. Java was my language of choice at that time.</p>
+                    <p>
+                        Following university I worked as an IT focused Business Analyst for 8 years after which I
+                        decided it was time to return to my first love, programming.
+                    </p>
+                    <p>
+                        After leaving my Business Analyst career I founded my company,
+                        <a href="#" alt="Diversify Portfolio" class="link">Diversify Portfolio</a> which allows customers to analyze their
+                        stock portfolios. More detail on the technology behind Diversify Portfolio
+                        can be found <a href="#" alt="Diversify Portfolio" class="link">here</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
