@@ -8,7 +8,7 @@ html {
 }
 
 body {
-    font-family: monospace;
+    font-family: sans-serif;
     box-sizing: border-box;
     background-color: #405861;
     color: #fff;
@@ -20,6 +20,10 @@ p {
 
 p:last-child {
     padding-bottom: 1rem;
+}
+
+li:not(:last-child) {
+    padding-bottom: 0.5rem;
 }
 
 .container {
@@ -44,6 +48,7 @@ p:last-child {
 }
 
 .nav {
+    z-index: 100;
     top: 0;
     padding-top: 1rem;
     background-color: #213a44;
@@ -79,7 +84,7 @@ p:last-child {
     flex: 0 0 40%;
 }
 
-.row-item:not(last-child) {
+.row-item:not(:last-child) {
     margin-right: 2rem;
 }
 
@@ -112,6 +117,10 @@ a:hover,
 
 .margin-left {
     margin-left: 2rem;
+}
+
+.margin-top {
+    margin-top: 1rem;
 }
 
 .tab {
@@ -151,4 +160,53 @@ a:hover,
 .tab-label:hover {
   background-color: #78aaad;
   cursor: pointer;
+}
+
+.card {
+    margin-top: 2rem;
+    border: 1px solid #78aaad;
+    border-radius: 3px;
+    padding: 0.5rem;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .7);
+}
+
+.card:hover {
+    border: 1px solid #78aaad;
+    box-shadow: none;
+    transform: scale(0.98);
+    cursor: pointer;
+}
+
+.card-header {
+    text-align: center;
+}
+
+.card-body {
+    border-top: 1px solid #78aaad;
+    padding: 1rem;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.5rem;
+}
+
+.card-link {
+    border: 1px solid #78aaad;
+    padding: 0.5rem;
+}
+
+.card-link:hover {
+    background-color: #78aaad;
+}
+
+.card,
+.card-image {
+    max-width: 395px;
+}
+
+.card-image {
+    max-width: 100%;
+    min-width: 290px;
 }
