@@ -75,21 +75,27 @@ li:not(:last-child) {
     margin-top: 1rem;
 }
 
-.row-item {
+.flex-grow-1 {
     flex-grow: 1;
     flex-basis: 0;
 }
 
-.row-item-small {
+.flex-small {
     flex: 0 0 40%;
 }
 
-.row-item:not(:last-child) {
+.row > div:not(:last-child) {
     margin-right: 2rem;
 }
 
 .section-border {
     border: 1px solid #78aaad;
+    border-radius: 2px;
+    padding: 1rem;
+}
+
+.section-filled {
+    background-color: #213a44;
     border-radius: 2px;
     padding: 1rem;
 }
@@ -129,7 +135,6 @@ a:hover,
     opacity: 0;
     height: 0;
     overflow: hidden;
-    padding-left: 1rem;
 }
 
 .tab-button {
@@ -144,7 +149,24 @@ a:hover,
 #tab-button-2:checked ~ #tab-content-2,
 #tab-button-3:checked ~ #tab-content-3 {
     opacity: 1;
-    height: auto;
+    height: 400px;
+    overflow-y: auto;
+}
+
+@media (max-width: 930px) {
+    #tab-button-1:checked ~ #tab-content-1,
+    #tab-button-2:checked ~ #tab-content-2,
+    #tab-button-3:checked ~ #tab-content-3 {
+        height: 500px;
+    }
+}
+
+@media (max-width: 845px) {
+    #tab-button-1:checked ~ #tab-content-1,
+    #tab-button-2:checked ~ #tab-content-2,
+    #tab-button-3:checked ~ #tab-content-3 {
+        height: 600px;
+    }
 }
 
 .tab-label {

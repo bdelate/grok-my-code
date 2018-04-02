@@ -11,7 +11,7 @@
     </header>
     <div class="container">
         <div class="row">
-            <div class="row-item row-item-small section-border">
+            <div class="flex-small section-border">
                 <div class="row">
                     <img class="cloud-logo" src="{% static 'core/img/linux.svg' %}" title="Linux" alt="Linux">
                 </div>
@@ -33,7 +33,7 @@
                     <img class="cloud-logo" src="{% static 'core/img/css3-html5.svg' %}" title="CSS3 and HTML5" alt="CSS3 and HTML5">
                 </div>
             </div>
-            <div class="row-item">
+            <div class="flex-grow-1 section-filled">
                 <input id="tab-button-1" class="tab-button" type="radio" name="tabs" checked>
                 <label for="tab-button-1" id="tab-label-1" class="tab-label">Overview</label>
                 <input id="tab-button-2" class="tab-button" type="radio" name="tabs">
@@ -64,34 +64,28 @@
                     <p>
                         <h3>Core:</h3>
                     </p>
-                    <p>
-                        <ul class="margin-left">
-                            <li>Python</li>
-                            <li>Django</li>
-                            <li>Django REST Framework</li>
-                            <li>Javascript</li>
-                            <li>React</li>
-                        </ul>
-                    </p>
+                    <ul class="margin-left">
+                        <li>Python</li>
+                        <li>Django</li>
+                        <li>Django REST Framework</li>
+                        <li>Javascript</li>
+                        <li>React</li>
+                    </ul>
                     <p>
                         <h3>Secondary:</h3>
                     </p>
-                    <p>
-                        <ul class="margin-left">
-                            <li>Linux</li>
-                            <li>PostgreSQL and SQL in general</li>
-                        </ul>
-                    </p>
+                    <ul class="margin-left">
+                        <li>Linux</li>
+                        <li>PostgreSQL and SQL in general</li>
+                    </ul>
                     <p>
                         <h3>Tertiary:</h3>
                     </p>
-                    <p>
-                        <ul class="margin-left">
-                            <li>HTML</li>
-                            <li>CSS and Sass</li>
-                            <li>UI and UX</li>
-                        </ul>
-                    </p>
+                    <ul class="margin-left">
+                        <li>HTML</li>
+                        <li>CSS and Sass</li>
+                        <li>UI and UX</li>
+                    </ul>
                 </div>
                 <div id="tab-content-3" class="tab">
                     <p>
