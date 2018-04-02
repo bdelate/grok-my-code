@@ -184,7 +184,15 @@ a:hover,
   cursor: pointer;
 }
 
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
 .card {
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 2rem;
     border: 1px solid #78aaad;
     border-radius: 3px;
@@ -195,23 +203,35 @@ a:hover,
 .card:hover {
     border: 1px solid #78aaad;
     box-shadow: none;
-    transform: scale(0.98);
-    cursor: pointer;
+    transform: scale(0.99);
 }
 
-.card-header {
-    text-align: center;
-}
-
-.card-body {
-    border-top: 1px solid #78aaad;
+.card-left,
+.card-right {
     padding: 1rem;
 }
 
-.card-footer {
+.card-left {
     display: flex;
-    justify-content: center;
-    padding-bottom: 0.5rem;
+    margin: auto;
+}
+
+.card-right {
+    display: flex;
+    flex: 1 1 200px;
+    max-width: 500px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-right > h2 {
+    border-bottom: 1px solid #78aaad;
+}
+
+.card-footer {
+    text-align: center;
+    margin-top: 1rem;
+    border-top: 1px solid #78aaad;
 }
 
 .card-link {
@@ -220,15 +240,32 @@ a:hover,
 }
 
 .card-link:hover {
+    cursor: pointer;
     background-color: #78aaad;
 }
 
-.card,
-.card-image {
-    max-width: 395px;
-}
+/* @media (max-width: 960px) {
+    .container {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    .card {
+        padding: 0;
+    }
+    .card-left,
+    .card-right {
+        padding: 2px;
+    }
+    .card-right {
+        padding-top: 1rem;
+    }
+} */
 
-.card-image {
-    max-width: 100%;
-    min-width: 290px;
-}
+/* @media (max-width: 845px) {
+    .card {
+        flex-basis: 0;
+    }
+    .card-right > h2 {
+        text-align: center;
+    }
+} */
