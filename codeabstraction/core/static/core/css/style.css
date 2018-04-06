@@ -226,6 +226,7 @@ a:hover,
 .card {
     display: flex;
     flex-wrap: wrap;
+    max-width: 900px;
     margin-top: 2rem;
     border: 1px solid #78aaad;
     border-radius: 3px;
@@ -239,14 +240,15 @@ a:hover,
     transform: scale(0.99);
 }
 
-.card-left,
 .card-right {
     padding: 1rem;
 }
 
 .card-left {
     display: flex;
+    justify-content: center;
     margin: auto;
+    max-width: 300px;
 }
 
 .card-right {
