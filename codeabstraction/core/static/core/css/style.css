@@ -81,6 +81,18 @@ li:not(:last-child) {
     align-self: center;
 }
 
+.footer {
+    background-color: #213a44;
+    border-top: 1px solid #78aaad;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 4rem;
+    padding: 1rem 0;
+}
+
 .row {
     display: flex;
     justify-content: space-around;
