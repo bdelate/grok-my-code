@@ -39,7 +39,8 @@ li:not(:last-child) {
     justify-content: center;
     flex-direction: column;
     font-size: 1.5rem;
-    color: #000;
+    color: #fff;
+    text-shadow: #000 1px 1px 5px;
 }
 
 .bg-index {
@@ -58,6 +59,14 @@ li:not(:last-child) {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.bg-diversifyportfolio {
+    background: linear-gradient(to right,
+                                rgba(119, 170, 173, 0.9),
+                                rgba(136, 138, 199, 0.5)),
+                url('/static/core/img/diversifyportfolio/banner.png');
+    background-size: cover;
 }
 
 .nav {
@@ -226,6 +235,7 @@ a:hover,
 .card {
     display: flex;
     flex-wrap: wrap;
+    max-width: 900px;
     margin-top: 2rem;
     border: 1px solid #78aaad;
     border-radius: 3px;
@@ -239,14 +249,15 @@ a:hover,
     transform: scale(0.99);
 }
 
-.card-left,
 .card-right {
     padding: 1rem;
 }
 
 .card-left {
     display: flex;
+    justify-content: center;
     margin: auto;
+    max-width: 300px;
 }
 
 .card-right {
@@ -281,6 +292,11 @@ a:hover,
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.gist .blob-wrapper.data {
+   max-height: 600px;
+   overflow:auto;
 }
 
 @media (max-width: 1050px) {
@@ -319,6 +335,11 @@ a:hover,
     margin-left: 1rem;
     margin-right: 1rem;
     flex-direction: column;
+}
+
+.detail-row-item > h4 {
+    border-bottom: 1px solid #78aaad;
+    padding-top: 2rem;
 }
 
 .detail-row-header {

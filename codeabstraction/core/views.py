@@ -13,6 +13,11 @@ class Portfolio(TemplateView):
     extra_context = {'active_link': 'portfolio'}
 
 
+class DiversifyPortfolio(TemplateView):
+
+    template_name = 'core/diversifyportfolio.html'
+
+
 class WhoKnows(TemplateView):
 
     template_name = 'core/whoknows.html'

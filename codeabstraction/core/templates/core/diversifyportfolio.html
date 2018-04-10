@@ -1,0 +1,233 @@
+{% extends parent_template|default:"core/base.html" %}
+{% load staticfiles %}
+{% block body %}
+    <header class="hero bg-diversifyportfolio">
+        <div class="row">
+            <h1>Diversify Portfolio</h1>
+        </div>
+        <div class="row">
+            <span>Stock market tools for actively engaged, self-directed investors and traders.</span>
+        </div>
+    </header>
+    <div class="container">
+        <h2 class="detail-row-header">Table of Contents</h2>
+        <div class="detail-row">
+            <div class="detail-row-item">
+                <p>
+                    <ol class="toc margin-left">
+                        <li><a href="#1" class="link">Overview</a></li>
+                        <li><a href="#2" class="link">Nightly Data Update</a></li>
+                        <li><a href="#3" class="link">Improving response times using Redis as a cache</a></li>
+                        <li><a href="#4" class="link">Third Party Integration</a></li>
+                    </ol>
+                </p>
+            </div>
+            <div class="detail-row-item">
+                <p class="alert">
+                    For every project I add to Grok My Code, I like to provide extra information on design decisions,
+                    code snippets, technologies used or anything of interest related to the development.
+                </p>
+            </div>
+        </div>
+        <h2 id="1" class="detail-row-header">1. Overview</h2>
+        <div class="detail-row">
+            <div class="detail-row-item">
+                <p>
+                    Diversify Portfolio is a customer serving stock portfolio analysis site which provides tools focused around
+                    diversification, asset allocation and factor analysis.
+                </p>
+                <p>
+                    I was responsible for the entire development of the site including all back end, front end, server setup / maintenance
+                    and marketing / SEO related activities.
+                </p>
+                <p>A few key features include:</p>
+                <p>
+                    <ul class="margin-left">
+                        <li>5 years of data on over 7 500 stocks, updated daily.</li>
+                        <li>Portfolio level backtesting and analysis.</li>
+                        <li>Interactive charts and visualisation tools.</li>
+                        <li>Stocks screens and opportunity finders.</li>
+                        <li>PayPal integration.</li>
+                        <li>MailChimp integration.</li>
+                    </ul>
+                </p>
+            </div>
+            <div class="detail-row-item section-filled">
+                <h3>Live site:</h3>
+                <p>
+                    <a href="https://www.diversifyportfolio.com" alt="Diversify Portfolio" target="_blank" class="link">
+                        www.diversifyportfolio.com
+                    </a>
+                </p>
+                <hr class="margin-top" />
+                <p>
+                    If you wish to test the functionality of the site, you can sign up for the free 10 day trial.
+                </p>
+            </div>
+        </div>
+        <h2 id="2" class="detail-row-header">2. Nightly Data Update</h2>
+        <div class="detail-row">
+            <div class="detail-row-item">
+                <p>
+                    Every night a multi stage process (which I wrote in
+                    <a href="https://www.python.org/" alt="Python Programming" target="link" class="link">Python</a>)
+                    is run to obtain and prepare the latest stock market data:
+                </p>
+                <h4>2.1. Data Download</h4>
+                <p>
+                    The most recent days stock market activity is downloaded via FTP from a 3rd party vendor for over 7 500 stocks.
+                    This is simply the raw data such as closing price, volume, company fundamentals etc.
+                </p>
+                <h4>2.2. Data Scrubbing</h4>
+                <p>The data is scrubbed to address any anomalies and to format it correctly. The cleaned data is then saved to the database.</p>
+                <h4>2.3. Long Running Calculations</h4>
+                <p>
+                    Due to the amount of data involved in several of the calculations used throughout the site, it takes a fairly long time
+                    (seconds) to perform some of the analysis required by users.
+                </p>
+                <p>
+                    To improve performance in this regard, certain calculations are performed and stored on the most popular stocks over
+                    night, for example:
+                </p>
+                <p class="margin-left">
+                    Stock correlation plays a central role in Diversify Portfolio. However, calculating correlations between stocks takes time,
+                    especially when done over multiple time frames which is what the site does.
+                </p>
+                <p class="margin-left">
+                    Therefore, the database contains a correlation table which is updated at this stage of the nightly run to contain only the
+                    correlation information of the 1 500 most popular stocks.
+                </p>
+                <p class="margin-left">
+                    When users of the site need access to correlation related information, Django will first check if the data is already
+                    contained within this table before calculating it on the fly.
+                </p>
+            </div>
+            <div class="detail-row-item">
+                <p>
+                    This snippet is a simplified version of the query run to obtain the most popular stocks.
+                </p>
+                <p><script src="https://gist.github.com/bdelate/f776faa4c0c9fb36b7f606d9af464cfe.js"></script></p>
+                <p>
+                    Python (along with <a href="https://pandas.pydata.org/" alt="Python Pandas" target="_blank" class="link">Pandas</a>
+                    which is used heavily throughout the site) is then used on the above stocks to calculate their correlations
+                    over multiple time frames and ultimately stored in the correlation table.
+                </p>
+                <h4>2.4. Clearing the cache</h4>
+                <p>
+                    The final step is to clear the <a href="https://redis.io/" target="_blank" alt="Redis" class="link">Redis</a> cache to
+                    ensure that the next time a user accesses any of the site tools, all relevant calculations are re-done to include the new
+                    stock market data. Redis is discussed more in the following section.
+                </p>
+            </div>
+        </div>
+        <h2 id="3" class="detail-row-header">3. Improving response times using Redis as a cache</h2>
+        <div class="detail-row">
+            <div class="detail-row-item">
+                <p>
+                    As was mentioned above, many of the calculations performed throughout the site use several years worth of stock market
+                    data which takes time to complete. I therefore use <a href="https://redis.io/" target="_blank" alt="Redis" class="link">Redis</a>
+                    as a cache wherever appropriate.
+                </p>
+                <p>
+                    One such area where Redis is used is the
+                    <a href="https://www.diversifyportfolio.com/stock-portfolio-analyzer/"
+                        target="_blank"
+                        alt="Stock Portfolio Analyzer"
+                        class="link">Portfolio Analyser Tool</a>:
+                </p>
+                <p>
+                    <ul class="margin-left">
+                        <li>
+                            Initially when a user accesses their portfolio, Django will check to see if it already exists in the cache.
+                            If it does, Django will simply add the users cached portfolio analysis results to the response context.
+                        </li>
+                        <li>
+                            If a cache miss occurs, the portfolio analysis is calculated from scratch (using the <i>correlation</i> table
+                            discussed in the prior section where possible). The analysis results are cached with Redis and then added to the
+                            response context to be sent to the user.
+                        </li>
+                        <li>
+                            Whenever a user makes a change to their portfolio such as adding / removing stocks or changing position sizes,
+                            the resulting portfolio analysis is recalculated and cached (replacing the original).
+                        </li>
+                        <li>
+                            Since users can have multiple stock portfolios, cache keys are namespaced, ie:
+                            <b>username:portfolio_id:portfolio</b>. There are several other areas throughout the site which uses caching
+                            along with a similar naming convention depending on the analysis tool being used.
+                        </li>
+                    </ul>
+                </p>
+            </div>
+            <div class="detail-row-item">
+                <p>
+                    The following code illustrates how the portfolio analysis results are cached and retrieved:
+                </p>
+                <p><script src="https://gist.github.com/bdelate/45c0af7dacd8e7e220293fb2f5ec1c29.js"></script></p>
+            </div>
+        </div>
+        <h2 id="4" class="detail-row-header">4. Third Party Integration</h2>
+        <div class="detail-row">
+            <div class="detail-row-item">
+                <p>Diversify Portfolio integrates with:</p>
+                <p>
+                    <ul class="margin-left">
+                        <li>PayPal for payment of once off and subscription memberships.</li>
+                        <li>
+                            MailChimp for programmatically moving users between different mailing lists depending
+                            on their status (ie: Newsletter, Trial User, Member)
+                        </li>
+                        <li>
+                            The data vendor discussed previously.
+                        </li>
+                    </ul>
+                </p>
+                <h4>PayPal Integration</h4>
+                <p>
+                    PayPal provides several integration options, one of which is to use IPN (Instant Payment Notification).
+                    Briefly, the process that is followed is:
+                </p>
+                <p>
+                    <ol class="margin-left">
+                        <li>
+                            Two Django forms are created (once off and subscription) for membership sign ups and payment.
+                            These forms are submitted to a specific PayPal url along with identification and payment information.
+                        </li>
+                        <li>
+                            As soon as PayPal has accepted a payment, it sends a message back to a configured end point within Django
+                            in a separate HTTP request. It will make multiple attempts if there are connectivity issues.
+                        </li>
+                        <li>
+                            If a valid IPN response is received from PayPal, Django will call a <i>payment_notificatin()</i> method.
+                            This is possible thanks to the use of
+                            <a href="https://docs.djangoproject.com/en/2.0/topics/signals/"
+                                alt="Django Signals"
+                                target="_blank"
+                                class="link">Django Signals</a>
+                            which is a way to be notified when specific actions occur in decoupled applications.
+                        </li>
+                        <li>
+                            By analysing the response data received from PayPal, the users details are updated accordingly (eg: new member,
+                            new payment, membership cancellation etc).
+                            <p>
+                                <ul class="margin-left">
+                                    <li>
+                                        Validation is performed (not shown here) to ensure the correct amounts have been paid within
+                                        the correct payment cycles (monthly / yearly / once off).
+                                    </li>
+                                </ul>
+                            </p>
+                        </li>
+                        <li>Users are also moved into different MailChimp groups when needed (sign-up and cancellation).</li>
+                    </ol>
+                </p>
+            </div>
+            <div class="detail-row-item">
+                <p>
+                    The below snippet illustrates how Django Signals is used to call <i>paypal_notification()</i> when a valid IPN is received.
+                    Note the last line of the snippet:
+                </p>
+                <p><script src="https://gist.github.com/bdelate/cdfba64bf756f0ee8ec9603365b28050.js"></script></p>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
