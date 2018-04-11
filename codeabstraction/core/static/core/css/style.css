@@ -171,6 +171,10 @@ a:hover,
     overflow: hidden;
 }
 
+.tab > p {
+    padding-right: 1rem;
+}
+
 .tab-button {
     display: none;
 }
