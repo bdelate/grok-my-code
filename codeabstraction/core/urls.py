@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, Portfolio, DiversifyPortfolio, WhoKnows
+from .views import Home, Portfolio, Contact, DiversifyPortfolio, WhoKnows
 
 app_name = 'core'
 
@@ -10,6 +10,9 @@ urlpatterns = [
     path('portfolio/',
          Portfolio.as_view(),
          name='portfolio'),
+    path('contact/',
+         Contact.as_view(),
+         name='contact'),
     path('portfolio/diversifyportfolio/',
          DiversifyPortfolio.as_view(),
          name='diversifyportfolio'),

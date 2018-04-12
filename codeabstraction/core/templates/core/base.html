@@ -9,27 +9,32 @@
         <link rel="stylesheet" type="text/css" href="{% static 'core/css/style.css' %}">
     </head>
     <body>
-        <nav class="nav">
-            <div class="nav-item">
-                <a href="{% url 'core:home' %}" alt="About" class="{% if active_link == 'about' %}active-link{% endif %}">About</a>
-            </div>
-            <div class="nav-item">
-                <a href="{% url 'core:portfolio' %}" alt="Portfolio" class="{% if active_link == 'portfolio' %}active-link{% endif %}">Portfolio</a>
-            </div>
-            <div class="nav-item">
-                <a href="https://github.com/bdelate" target="_blank">
-                    <img src="{% static 'core/img/github.png' %}" alt="GitHub" class="nav-image" />
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="https://www.linkedin.com/in/brendondelate/" target="_blank">
-                    <img src="{% static 'core/img/linkedin.png' %}" alt="LinkedIn" class="nav-image" />
-                </a>
-            </div>
-        </nav>
-        {% block body %}{% endblock body %}
+        <div class="content">
+            <nav class="nav">
+                <div class="nav-item">
+                    <a href="{% url 'core:home' %}" alt="About" class="{% if active_link == 'about' %}active-link{% endif %}">About</a>
+                </div>
+                <div class="nav-item">
+                    <a href="{% url 'core:portfolio' %}" alt="Portfolio" class="{% if active_link == 'portfolio' %}active-link{% endif %}">Portfolio</a>
+                </div>
+                <div class="nav-item">
+                    <a href="https://github.com/bdelate" target="_blank">
+                        <img src="{% static 'core/img/github.png' %}" alt="GitHub" class="nav-image" />
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="https://www.linkedin.com/in/brendondelate/" target="_blank">
+                        <img src="{% static 'core/img/linkedin.png' %}" alt="LinkedIn" class="nav-image" />
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="{% url 'core:contact' %}" alt="Contact" class="{% if active_link == 'contact' %}active-link{% endif %}">Contact</a>
+                </div>
+            </nav>
+            {% block body %}{% endblock body %}
+        </div>
+        <footer class="footer">
+            <span>&copy; 2018 Grok My Code</span>
+        </footer>
     </body>
-    <footer class="footer">
-        <span>&copy; 2018 Grok My Code</span>
-    </footer>
 </html>
