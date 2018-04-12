@@ -22,6 +22,12 @@ body {
     flex: 1 0 auto;
 }
 
+@media (max-width: 540px) {
+    .content {
+        margin-top: 3rem;
+    }
+}
+
 p {
     padding-top: 1rem;
 }
