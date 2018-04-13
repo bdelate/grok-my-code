@@ -1,5 +1,5 @@
 """
-WSGI config for codeabstraction project.
+WSGI config for grokmycode project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "codeabstraction.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "grokmycode.settings")
 
 application = get_wsgi_application()
