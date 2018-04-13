@@ -1,4 +1,4 @@
-"""codeabstraction URL Configuration
+"""grokmycode URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -18,7 +18,7 @@ from django.urls import path, include
 import os
 
 
-ADMIN_URL = os.environ['codeabstraction_admin_url']
+ADMIN_URL = os.environ['grokmycode_admin_url']
 
 urlpatterns = [
     path('', include('core.urls', namespace='core')),
