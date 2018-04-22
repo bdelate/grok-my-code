@@ -21,8 +21,6 @@ BASE_DIR = os.path.dirname(BASE_DIR)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
-SECRET_KEY = os.environ['grokmycode_secret_key']
-
 
 # Application definition
 
