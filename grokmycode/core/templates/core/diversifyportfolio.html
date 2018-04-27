@@ -124,7 +124,7 @@
         <div class="detail-row">
             <div class="detail-row-item">
                 <p>
-                    As was mentioned above, many of the calculations performed throughout the site use several years worth of stock market
+                    Many of the calculations performed throughout the site use several years worth of stock market
                     data which takes time to complete. I therefore use <a href="https://redis.io/" target="_blank" alt="Redis" class="link">Redis</a>
                     as a cache wherever appropriate.
                 </p>
@@ -152,7 +152,7 @@
                         </li>
                         <li>
                             Since users can have multiple stock portfolios, cache keys are namespaced, ie:
-                            <b>username:portfolio_id:portfolio</b>. There are several other areas throughout the site which uses caching
+                            <b>username:portfolio_id:portfolio</b>. There are several other areas throughout the site which use caching
                             along with a similar naming convention depending on the analysis tool being used.
                         </li>
                     </ul>
@@ -197,7 +197,7 @@
                             in a separate HTTP request. It will make multiple attempts if there are connectivity issues.
                         </li>
                         <li>
-                            If a valid IPN response is received from PayPal, Django will call a <i>payment_notificatin()</i> method.
+                            If a valid IPN response is received from PayPal, Django will call a <i>payment_notification()</i> method.
                             This is possible thanks to the use of
                             <a href="https://docs.djangoproject.com/en/2.0/topics/signals/"
                                 alt="Django Signals"
