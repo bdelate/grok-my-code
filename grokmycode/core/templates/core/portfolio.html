@@ -2,52 +2,62 @@
 {% load staticfiles %}
 {% block body %}
     <div class="container">
-        <div class="card-container">
-            <div class="card">
-                <div class="card-left">
-                    <img src="{% static 'core/img/diversifyportfolio/chart.png' %}" alt="Diversify Portfolio card image" class="card-image">
-                </div>
-                <div class="card-right">
-                    <h2>Diversify Portfolio</h2>
-                    <p>
-                        Diversify Portfolio allows investors to analyze their stock portfolios and look for opportunities
-                        using several interactive tools.
-                    </p>
-                    <p>A few key features include:</p>
-                    <ul class="margin-left margin-top">
-                        <li>5 years of data on over 7 500 stocks, updated daily.</li>
-                        <li>Portfolio level backtesting and analysis.</li>
-                        <li>Interactive charts and visualisation tools.</li>
-                        <li>Stocks screens and opportunity finders.</li>
-                        <li>PayPal integration.</li>
-                        <li>MailChimp integration.</li>
-                    </ul>
-                    <p class="card-footer">
-                        <a href="{% url 'core:diversifyportfolio' %}" class="card-link">Check it out</a>
-                    </p>
-                </div>
-            </div>
+      <div class="portfolio-header-container">
+        <div class="portfolio-header">
+          <h1>My Portfolio</h1>
         </div>
-        <div class="card-container">
-            <div class="card">
-                <div class="card-left">
-                    <img src="{% static 'core/img/whoknows/question.png' %}" alt="WhoKnows card image" class="card-image">
-                </div>
-                <div class="card-right">
-                    <h2>Who Knows - Q&A</h2>
-                    <p>Who Knows is a question and answer site similar to Stack Overflow or Quora.</p>
-                    <p>It includes all the functionality you would expect from a Q&A site such as:</p>
-                    <ul class="margin-left margin-top">
-                        <li>Voting for questions, answers or comments</li>
-                        <li>Accepting answers</li>
-                        <li>Tagging and filtering</li>
-                        <li>Searching</li>
-                    </ul>
-                    <p class="card-footer">
-                        <a href="{% url 'core:whoknows' %}" class="card-link">Check it out</a>
-                    </p>
-                </div>
-            </div>
+        <div class="portfolio-header">
+          <span>
+            Things i've created - check them out.<br /><br />Source code snippets, detail on technologies used and links to live versions are available.
+          </span>
         </div>
-    </div>
+      </div>
+      <div class="card-container">
+          <div class="card">
+              <div class="card-left">
+                  <img src="{% static 'core/img/diversifyportfolio/chart.png' %}" alt="Diversify Portfolio card image" class="card-image">
+              </div>
+              <div class="card-right">
+                  <h2>Diversify Portfolio</h2>
+                  <p>
+                      Diversify Portfolio allows investors to analyze their stock portfolios and look for opportunities
+                      using several interactive tools.
+                  </p>
+                  <p>A few key features include:</p>
+                  <ul class="margin-left margin-top">
+                      <li>5 years of data on over 7 500 stocks, updated daily.</li>
+                      <li>Portfolio level backtesting and analysis.</li>
+                      <li>Interactive charts and visualisation tools.</li>
+                      <li>Stocks screens and opportunity finders.</li>
+                      <li>PayPal integration.</li>
+                      <li>MailChimp integration.</li>
+                  </ul>
+                  <p class="card-footer">
+                      <a href="{% url 'core:diversifyportfolio' %}" class="card-link">Check it out</a>
+                  </p>
+              </div>
+          </div>
+      </div>
+      <div class="card-container">
+          <div class="card">
+              <div class="card-left">
+                  <img src="{% static 'core/img/whoknows/question.png' %}" alt="WhoKnows card image" class="card-image">
+              </div>
+              <div class="card-right">
+                  <h2>Who Knows - Q&A</h2>
+                  <p>Who Knows is a question and answer site similar to Stack Overflow or Quora.</p>
+                  <p>It includes all the functionality you would expect from a Q&A site such as:</p>
+                  <ul class="margin-left margin-top">
+                      <li>Voting for questions, answers or comments</li>
+                      <li>Accepting answers</li>
+                      <li>Tagging and filtering</li>
+                      <li>Searching</li>
+                  </ul>
+                  <p class="card-footer">
+                      <a href="{% url 'core:whoknows' %}" class="card-link">Check it out</a>
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
 {% endblock body%}
