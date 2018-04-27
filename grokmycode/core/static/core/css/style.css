@@ -428,6 +428,7 @@ a:hover,
 .portfolio-header-container {
     display: flex;
     width: 60vw;
+    max-width: 700px;
     margin: auto;
     padding-top: 3rem;
 }
@@ -451,7 +452,7 @@ a:hover,
     border-left: 4px solid #78aaad;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 720px) {
     .portfolio-header-container {
         width: 86vw;
     }
