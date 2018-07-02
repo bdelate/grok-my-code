@@ -1,268 +1,328 @@
-{% extends parent_template|default:"core/base.html" %}
-{% load staticfiles %}
-{% block body %}
-    <header class="hero bg-whoknows">
-        <div class="row">
-            <h1>Who Knows</h1>
+{% extends parent_template|default:"core/base.html" %} {% load staticfiles %} {% block body %}
+<header class="hero bg-whoknows">
+    <div class="row">
+        <h1>Who Knows</h1>
+    </div>
+    <div class="row">
+        <span>Got a question? Ask it to find out Who Knows.</span>
+    </div>
+</header>
+<div class="container">
+    <h2 class="detail-row-header">Table of Contents</h2>
+    <div class="detail-row">
+        <div class="detail-row-item">
+            <p>
+                <ol class="toc margin-left">
+                    <li>
+                        <a href="#1" class="link">Overview</a>
+                    </li>
+                    <li>
+                        <a href="#2" class="link">Generic Relations Between Models</a>
+                    </li>
+                    <li>
+                        <a href="#3" class="link">Combining OuterRef and Exists</a>
+                    </li>
+                    <li>
+                        <a href="#4" class="link">Django Tests and Initial Data</a>
+                    </li>
+                </ol>
+            </p>
         </div>
-        <div class="row">
-            <span>Got a question? Ask it to find out Who Knows.</span>
-        </div>
-    </header>
-    <div class="container">
-        <h2 class="detail-row-header">Table of Contents</h2>
-        <div class="detail-row">
-            <div class="detail-row-item">
-                <p>
-                    <ol class="toc margin-left">
-                        <li><a href="#1" class="link">Overview</a></li>
-                        <li><a href="#2" class="link">Generic Relations Between Models</a></li>
-                        <li><a href="#3" class="link">Combining OuterRef and Exists</a></li>
-                        <li><a href="#4" class="link">Django Tests and Initial Data</a></li>
-                    </ol>
-                </p>
-            </div>
-            <div class="detail-row-item">
-                <p class="alert">
-                    For every project I add to Grok My Code, I provide extra information on design decisions,
-                    code snippets, technologies used or anything of interest related to the development.
-                </p>
-            </div>
-        </div>
-        <h2 id="1" class="detail-row-header">1. Overview</h2>
-        <div class="detail-row">
-            <div class="detail-row-item">
-                <p>Who Knows is a <a href="https://www.djangoproject.com/" alt="Django" target="_blank" class="link">Django</a> based question
-                  and answer site in the same vein as Stack Overflow or Quora.</p>
-                <p>The site provides the following functionality:</p>
-                <p>
-                    <ul class="margin-left">
-                        <li>Asking and answering questions.</li>
-                        <li>Commenting on questions and answers.</li>
-                        <li>Up voting questions, answers and comments.</li>
-                        <li>Accepting answers as being correct.</li>
-                        <li>Tagging questions along with filtering questions by tag.</li>
-                        <li>Filtering for questions with no answers, accepted answers etc.</li>
-                        <li>Text based searching.</li>
-                        <li>User profiles including statistics based on votes received for questions, answers and comments.</li>
-                    </ul>
-                </p>
-            </div>
-            <div class="detail-row-item section-filled">
-                <h3>Source code and live demo:</h3>
-                <p>
-                    <a href="https://github.com/bdelate/who-knows" alt="GitHub" target="_blank" class="link">
-                        <img src="{% static 'core/img/github-small.png' %}" alt="GitHub" />
-                    </a>
-                </p>
-                <p>
-                    <a href="https://whoknows.grokmycode.com" target="_blank" class="link">whoknows.grokmycode.com</a>
-                </p>
-                <hr class="margin-top" />
-                <p>
-                    If you're testing the functionality of the demo site, I suggest you signup as a user since only signed
-                    in users have access to most of the functionality. Alternatively, simply sign in using the
-                    following credentials:
-                </p>
-                <p>Username: <b>demo-user</b></p>
-                <p>Password: <b>demo-password-234</b></p>
-            </div>
-        </div>
-        <h2 id="2" class="detail-row-header">2. Generic Relations Between Models</h2>
-        <div class="detail-row">
-            <div class="detail-row-item">
-                <p>
-                    Typically foreign keys only point to one other model. Although this is the most common use case, there are
-                    situations where creating model relationships that are more generic (or polymorphic) is useful.
-                </p>
-                <p>
-                    A good use case for this comes in the form of <i>voting</i> and <i>commenting</i> on the Who Knows site. We
-                    need the ability to comment on either questions or answers. Additionally, we need the ability to vote for questions,
-                    answers or comments.
-                </p>
-                <p>
-                    Essentially, what we're looking for is to create <i>Vote</i> and <i>Comment</i> models that can be used generically
-                    to vote or comment on any other model that we specify. Django Generic Relations gives us exactly this behavior.
-                </p>
-                <p>
-                    Generic Relations is a part of the <i>content types framework</i> which keeps track of all the models installed in
-                    a Django project and provides a generic interface for working with those models.
-                </p>
-                <p>There are 3 required fields when creating a generic relation, namely:</p>
-                <p>
-                    <ul class="margin-left">
-                        <li>
-                            <b>content_type:</b> This is a ForeignKey to ContentType</i> which is used to
-                            reference the related model id as specified by the <i>content types framework</i>. For example,
-                            since we can comment on questions or answers, this field will contain the content type id for the
-                            <i>Question</i> or <i>Answer</i> model.
-                        </li>
-                        <li>
-                            <b>object_id:</b> This stores the primary key of the model instance (ie: database record) you're
-                            commenting / voting on. In other words, it references the specific question or answer being commented / voted on.
-                        </li>
-                        <li>
-                            <b>content_object:</b> This creates a <i>GenericForeignKey</i> which accepts the above fields as arguments.
-                            They can either be passed in explicitly or left out if the above fields have been named <i>'content_type'</i>
-                            and <i>'object_id'</i> respectively.
-                        </li>
-                    </ul>
-                </p>
-            </div>
-            <div class="detail-row-item">
-                <p>Creating a <i>Comment</i> model in the form of a generic relation can be done as follows (note the 3 fields at the bottom):</p>
-                <p><script src="https://gist.github.com/bdelate/bd0eccf681188c9a25e8b6e8c8470914.js"></script></p>
-            </div>
-        </div><hr class="divider" />
-        <div class="detail-row">
-            <div class="detail-row-item">
-                <p>
-                    Now that we have a generic <i>Comment</i> Model, we need to add it as a <i>GenericRelation</i> to whichever model
-                    we want to allow commenting on. Here's how you would add it to the <i>Answer</i> Model:
-                </p>
-                <p><script src="https://gist.github.com/bdelate/59c15818f232817be53a7a9971a98463.js"></script></p>
-            </div>
-            <div class="detail-row-item">
-                <p>
-                    We've specified a <i>comments</i> as well as a <i>votes GenericRelation</i> along with their respective
-                    <i>related_query_name</i> fields for doing reverse lookups.
-                </p>
-                <p>
-                    Adding the ability to comment or vote on any other models can be done by simply adding a <i>GenericRelation</i>
-                    to that model. For example, we could add commenting or voting to user profiles if we wanted to.
-                </p>
-                <p>
-                    Generic relations can also be added to models which are themselves used as generic relations. For example, you can see from
-                    the first code snippet that we also added a votes generic relation to the Comment model. This allows us to vote on comments
-                    (or on any other model we add the votes generic relation to).
-                </p>
-                <p>
-                    Generic relations come with most of the API functionality related to standard foreign keys as well as to the aggregation API.
-                    This allows for useful and intuitive querying, for example:
-                </p>
-                <p>
-                    <ul class="margin-left">
-                        <li>Retrieve all the comments from the first question:</li>
-                    </ul>
-                </p>
-                <p class="alert">
-                    <span>question = Question.objects.first()</span>
-                    <span>question.comments.all()</span>
-                </p>
-                <p>
-                    <ul class="margin-left">
-                        <li>Count how many votes the latest comment on the first answer has:</li>
-                    </ul>
-                </p>
-                <p class="alert">
-                    <span>answer = Answer.objects.first()</span>
-                    <span>latest_comment = answer.comments.last()</span>
-                    <span>latest_comment.votes.count()</span>
-                </p>
-            </div>
-        </div>
-        <h2 id="3" class="detail-row-header">3. Combining OuterRef and Exists</h2>
-        <div class="detail-row">
-            <div class="detail-row-item">
-                <p>
-                    A typical use case when implementing generic voting functionality is to limit a user to only having one vote.
-                    For example, in the Who Knows site, a user should only be able up vote a question, answer or comment once.
-                </p>
-                <p>
-                    Using the Question model as an example, we need to retrieve a specific question from the database and add a flag
-                    to the queryset indicating whether the current user has already voted for the question.
-                </p>
-                <p>
-                    To do this, we can combine the use of Django's <i>OuterRef</i> and <i>Exists</i>, both of which were added
-                    in version 1.11.
-                </p>
-            </div>
-            <div class="detail-row-item">
-                <p class="alert">
-                    <b>OuterRef</b><br />
-                    <span>
-                        This is used when a queryset in a sub query needs to refer to a field from the outer query.
-                    </span>
-                </p>
-                <p class="alert">
-                    <b>Exists</b><br />
-                    <span>
-                        This uses an SQL EXISTS statement which means this part of the sub query stops evaluating as soon as a
-                        match is found.
-                    </span>
-                </p>
-            </div>
-        </div><hr class="divider" />
-        <div class="detail-row">
-            <div class="detail-row-item">
-                <p>
-                    <ol class="margin-left">
-                        <li>
-                            First we filter for questions which the current user has voted for. In the filter clause, we set up
-                            the <i>OuterRef</i> by specifying which field it refers to.
-                        </li>
-                        <li>
-                            <p>
-                                Next, we create a query that retrieves the associated user for a given question using the <i>select_related</i>
-                                clause. This ensures that only one resulting SQL query is generated.
-                            </p>
-                            <p>
-                                We annotate this query with a voted flag which checks for the existence of the first query result.
-                            </p>
-                        </li>
-                        <li>Lastly, we use the above query to obtain a specific question based on it's slug.</li>
-                    </ol>
-                </p>
-                <p>
-                    As always, thanks to Django's lazy queryset evaluation, only the final queryset is executed against the database
-                    and thanks to the use of <i>selected_related</i> combined with the sub query (ie: <i>Exists</i> and <i>OuterRef</i>),
-                    everything is done in one query.
-                </p>
-            </div>
-            <div class="detail-row-item">
-                <p>
-                    The following code snippet demonstrates how to flag a specific question as having been voted for by the current
-                    user or not.
-                </p>
-                <p><script src="https://gist.github.com/bdelate/9773c2306abd8cd83b10f6a0f1315d75.js"></script></p>
-            </div>
-        </div>
-        <h2 id="4" class="detail-row-header">4. Django Tests and Initial Data</h2>
-        <div class="detail-row">
-            <div class="detail-row-item">
-                <p>
-                    A TDD (Test Driven Development) approach was used for the most part while developing Who Knows. This meant that there
-                    was a need for test data. There are several options when it comes to creating test data, each of which is appropriate in
-                    different situations:
-                </p>
-                <p>
-                    <ul class="margin-left">
-                        <li><b>Fixtures:</b> Test data is created once for the whole test case (before SetUpTestData is run).</li>
-                        <li><b>Manual:</b> Create test data as and when it is needed within each test.</li>
-                        <li><b>SetUp(self):</b> Test data is created before each test is run.</li>
-                        <li><b>SetUpTestData(cls):</b> Test data is created once for the whole test case.</li>
-                    </ul>
-                </p>
-                <p>
-                    Without going into the pros and cons of each option, I used a combination of the last 3.
-                </p>
-                <p>
-                    The benefit of using <i>SetUpTestData(cls)</i> wherever possible is that there is a significant performance boost in
-                    terms of speed thanks to only creating test data once for each test case. <i>SetUp(self)</i> on the other hand re-creates
-                    the initial data for every test.
-                </p>
-            </div>
-            <div class="detail-row-item">
-                <p>
-                    Since the initial test data I required was largely similar for all the apps within Who Knows, I created a <i>mixin</i>
-                    which could be used anywhere it was needed.
-                </p>
-                <p><script src="https://gist.github.com/bdelate/74ed4b314b23a0adbbe9ec7860166ff1.js"></script></p>
-                <p>
-                    <i>SetUpTestData</i> is defined as a class method which then has access to <i>create_test_data()</i> since
-                    <i>BaseTestMixins</i> was added as a parent.
-                </p>
+        <div class="detail-row-item">
+            <p class="alert">
+                For every project I add to Grok My Code, I provide extra information on design decisions, code snippets, technologies used
+                or anything of interest related to the development.
+            </p>
+            <div class="tech-tag-section">
+                <h3>Tech used on this project:</h3>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">Javascript</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <div class="tech-tag">HTML</div>
+                    <div class="tech-tag">CSS & Sass</div>
+                    <div class="tech-tag">Nginx</div>
+                    <div class="tech-tag">Gunicorn</div>
+                    <div class="tech-tag">Linux</div>
+                </div>
             </div>
         </div>
     </div>
+    <h2 id="1" class="detail-row-header">1. Overview</h2>
+    <div class="detail-row">
+        <div class="detail-row-item">
+            <p>Who Knows is a
+                <a href="https://www.djangoproject.com/" alt="Django" target="_blank" class="link">Django</a> based question and answer site in the same vein as Stack Overflow or Quora.</p>
+            <p>The site provides the following functionality:</p>
+            <p>
+                <ul class="margin-left">
+                    <li>Asking and answering questions.</li>
+                    <li>Commenting on questions and answers.</li>
+                    <li>Up voting questions, answers and comments.</li>
+                    <li>Accepting answers as being correct.</li>
+                    <li>Tagging questions along with filtering questions by tag.</li>
+                    <li>Filtering for questions with no answers, accepted answers etc.</li>
+                    <li>Text based searching.</li>
+                    <li>User profiles including statistics based on votes received for questions, answers and comments.</li>
+                </ul>
+            </p>
+        </div>
+        <div class="detail-row-item section-filled">
+            <h3>Source code and live demo:</h3>
+            <p>
+                <a href="https://github.com/bdelate/who-knows" alt="GitHub" target="_blank" class="link">
+                    <img src="{% static 'core/img/github-small.png' %}" alt="GitHub" />
+                </a>
+            </p>
+            <p>
+                <a href="https://whoknows.grokmycode.com" target="_blank" class="link">whoknows.grokmycode.com</a>
+            </p>
+            <hr class="margin-top" />
+            <p>
+                If you're testing the functionality of the demo site, I suggest you signup as a user since only signed in users have access
+                to most of the functionality. Alternatively, simply sign in using the following credentials:
+            </p>
+            <p>Username:
+                <b>demo-user</b>
+            </p>
+            <p>Password:
+                <b>demo-password-234</b>
+            </p>
+        </div>
+    </div>
+    <h2 id="2" class="detail-row-header">2. Generic Relations Between Models</h2>
+    <div class="detail-row">
+        <div class="detail-row-item">
+            <p>
+                Typically foreign keys only point to one other model. Although this is the most common use case, there are situations where
+                creating model relationships that are more generic (or polymorphic) is useful.
+            </p>
+            <p>
+                A good use case for this comes in the form of
+                <i>voting</i> and
+                <i>commenting</i> on the Who Knows site. We need the ability to comment on either questions or answers. Additionally,
+                we need the ability to vote for questions, answers or comments.
+            </p>
+            <p>
+                Essentially, what we're looking for is to create
+                <i>Vote</i> and
+                <i>Comment</i> models that can be used generically to vote or comment on any other model that we specify. Django
+                Generic Relations gives us exactly this behavior.
+            </p>
+            <p>
+                Generic Relations is a part of the
+                <i>content types framework</i> which keeps track of all the models installed in a Django project and provides
+                a generic interface for working with those models.
+            </p>
+            <p>There are 3 required fields when creating a generic relation, namely:</p>
+            <p>
+                <ul class="margin-left">
+                    <li>
+                        <b>content_type:</b> This is a ForeignKey to ContentType</i> which is used to reference the related
+                        model id as specified by the
+                        <i>content types framework</i>. For example, since we can comment on questions or answers, this field
+                        will contain the content type id for the
+                        <i>Question</i> or
+                        <i>Answer</i> model.
+                    </li>
+                    <li>
+                        <b>object_id:</b> This stores the primary key of the model instance (ie: database record) you're commenting
+                        / voting on. In other words, it references the specific question or answer being commented / voted
+                        on.
+                    </li>
+                    <li>
+                        <b>content_object:</b> This creates a
+                        <i>GenericForeignKey</i> which accepts the above fields as arguments. They can either be passed in explicitly
+                        or left out if the above fields have been named
+                        <i>'content_type'</i>
+                        and
+                        <i>'object_id'</i> respectively.
+                    </li>
+                </ul>
+            </p>
+        </div>
+        <div class="detail-row-item">
+            <p>Creating a
+                <i>Comment</i> model in the form of a generic relation can be done as follows (note the 3 fields at the bottom):</p>
+            <p>
+                <script src="https://gist.github.com/bdelate/bd0eccf681188c9a25e8b6e8c8470914.js"></script>
+            </p>
+        </div>
+    </div>
+    <hr class="divider" />
+    <div class="detail-row">
+        <div class="detail-row-item">
+            <p>
+                Now that we have a generic
+                <i>Comment</i> Model, we need to add it as a
+                <i>GenericRelation</i> to whichever model we want to allow commenting on. Here's how you would add it to the
+                <i>Answer</i> Model:
+            </p>
+            <p>
+                <script src="https://gist.github.com/bdelate/59c15818f232817be53a7a9971a98463.js"></script>
+            </p>
+        </div>
+        <div class="detail-row-item">
+            <p>
+                We've specified a
+                <i>comments</i> as well as a
+                <i>votes GenericRelation</i> along with their respective
+                <i>related_query_name</i> fields for doing reverse lookups.
+            </p>
+            <p>
+                Adding the ability to comment or vote on any other models can be done by simply adding a
+                <i>GenericRelation</i>
+                to that model. For example, we could add commenting or voting to user profiles if we wanted to.
+            </p>
+            <p>
+                Generic relations can also be added to models which are themselves used as generic relations. For example, you can see from
+                the first code snippet that we also added a votes generic relation to the Comment model. This allows us to
+                vote on comments (or on any other model we add the votes generic relation to).
+            </p>
+            <p>
+                Generic relations come with most of the API functionality related to standard foreign keys as well as to the aggregation
+                API. This allows for useful and intuitive querying, for example:
+            </p>
+            <p>
+                <ul class="margin-left">
+                    <li>Retrieve all the comments from the first question:</li>
+                </ul>
+            </p>
+            <p class="alert">
+                <span>question = Question.objects.first()</span>
+                <span>question.comments.all()</span>
+            </p>
+            <p>
+                <ul class="margin-left">
+                    <li>Count how many votes the latest comment on the first answer has:</li>
+                </ul>
+            </p>
+            <p class="alert">
+                <span>answer = Answer.objects.first()</span>
+                <span>latest_comment = answer.comments.last()</span>
+                <span>latest_comment.votes.count()</span>
+            </p>
+        </div>
+    </div>
+    <h2 id="3" class="detail-row-header">3. Combining OuterRef and Exists</h2>
+    <div class="detail-row">
+        <div class="detail-row-item">
+            <p>
+                A typical use case when implementing generic voting functionality is to limit a user to only having one vote. For example,
+                in the Who Knows site, a user should only be able up vote a question, answer or comment once.
+            </p>
+            <p>
+                Using the Question model as an example, we need to retrieve a specific question from the database and add a flag to the queryset
+                indicating whether the current user has already voted for the question.
+            </p>
+            <p>
+                To do this, we can combine the use of Django's
+                <i>OuterRef</i> and
+                <i>Exists</i>, both of which were added in version 1.11.
+            </p>
+        </div>
+        <div class="detail-row-item">
+            <p class="alert">
+                <b>OuterRef</b>
+                <br />
+                <span>
+                    This is used when a queryset in a sub query needs to refer to a field from the outer query.
+                </span>
+            </p>
+            <p class="alert">
+                <b>Exists</b>
+                <br />
+                <span>
+                    This uses an SQL EXISTS statement which means this part of the sub query stops evaluating as soon as a match is found.
+                </span>
+            </p>
+        </div>
+    </div>
+    <hr class="divider" />
+    <div class="detail-row">
+        <div class="detail-row-item">
+            <p>
+                <ol class="margin-left">
+                    <li>
+                        First we filter for questions which the current user has voted for. In the filter clause, we set up the
+                        <i>OuterRef</i> by specifying which field it refers to.
+                    </li>
+                    <li>
+                        <p>
+                            Next, we create a query that retrieves the associated user for a given question using the
+                            <i>select_related</i>
+                            clause. This ensures that only one resulting SQL query is generated.
+                        </p>
+                        <p>
+                            We annotate this query with a voted flag which checks for the existence of the first query result.
+                        </p>
+                    </li>
+                    <li>Lastly, we use the above query to obtain a specific question based on it's slug.</li>
+                </ol>
+            </p>
+            <p>
+                As always, thanks to Django's lazy queryset evaluation, only the final queryset is executed against the database and thanks
+                to the use of
+                <i>selected_related</i> combined with the sub query (ie:
+                <i>Exists</i> and
+                <i>OuterRef</i>), everything is done in one query.
+            </p>
+        </div>
+        <div class="detail-row-item">
+            <p>
+                The following code snippet demonstrates how to flag a specific question as having been voted for by the current user or not.
+            </p>
+            <p>
+                <script src="https://gist.github.com/bdelate/9773c2306abd8cd83b10f6a0f1315d75.js"></script>
+            </p>
+        </div>
+    </div>
+    <h2 id="4" class="detail-row-header">4. Django Tests and Initial Data</h2>
+    <div class="detail-row">
+        <div class="detail-row-item">
+            <p>
+                A TDD (Test Driven Development) approach was used for the most part while developing Who Knows. This meant that there was
+                a need for test data. There are several options when it comes to creating test data, each of which is appropriate
+                in different situations:
+            </p>
+            <p>
+                <ul class="margin-left">
+                    <li>
+                        <b>Fixtures:</b> Test data is created once for the whole test case (before SetUpTestData is run).</li>
+                    <li>
+                        <b>Manual:</b> Create test data as and when it is needed within each test.</li>
+                    <li>
+                        <b>SetUp(self):</b> Test data is created before each test is run.</li>
+                    <li>
+                        <b>SetUpTestData(cls):</b> Test data is created once for the whole test case.</li>
+                </ul>
+            </p>
+            <p>
+                Without going into the pros and cons of each option, I used a combination of the last 3.
+            </p>
+            <p>
+                The benefit of using
+                <i>SetUpTestData(cls)</i> wherever possible is that there is a significant performance boost in terms of speed
+                thanks to only creating test data once for each test case.
+                <i>SetUp(self)</i> on the other hand re-creates the initial data for every test.
+            </p>
+        </div>
+        <div class="detail-row-item">
+            <p>
+                Since the initial test data I required was largely similar for all the apps within Who Knows, I created a
+                <i>mixin</i>
+                which could be used anywhere it was needed.
+            </p>
+            <p>
+                <script src="https://gist.github.com/bdelate/74ed4b314b23a0adbbe9ec7860166ff1.js"></script>
+            </p>
+            <p>
+                <i>SetUpTestData</i> is defined as a class method which then has access to
+                <i>create_test_data()</i> since
+                <i>BaseTestMixins</i> was added as a parent.
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock body %}
