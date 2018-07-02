@@ -47,6 +47,11 @@ class DiversifyPortfolio(TemplateView):
     template_name = 'core/diversifyportfolio.html'
 
 
+class Kanban(TemplateView):
+
+    template_name = 'core/kanban.html'
+
+
 class WhoKnows(TemplateView):
 
     template_name = 'core/whoknows.html'
