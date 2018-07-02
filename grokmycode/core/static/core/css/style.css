@@ -89,6 +89,18 @@ li:not(:last-child) {
   background-size: cover;
 }
 
+.bg-kanban {
+  background: linear-gradient(
+      to right,
+      rgba(119, 170, 173, 0.9),
+      rgba(136, 138, 199, 0.5)
+    ),
+    url('/static/core/img/kanban/banner.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .nav {
   z-index: 100;
   top: 0;
@@ -486,4 +498,21 @@ a:hover,
   padding: 0.5rem;
   margin: 0.5rem;
   border-radius: 2px;
+}
+
+.table {
+  margin: 0 3rem 0 3rem;
+}
+
+.table th {
+  background-color: #213a44;
+  padding: 0.5rem;
+}
+.table td {
+  border: 1px solid #213a44;
+  padding: 0.5rem;
+}
+
+.table td ul {
+  padding: 1rem;
 }

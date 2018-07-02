@@ -1,0 +1,280 @@
+{% extends parent_template|default:"core/base.html" %} {% load staticfiles %} {% block body %}
+<header class="hero bg-kanban">
+  <div class="row">
+    <h1>Kanban Board</h1>
+  </div>
+  <div class="row">
+    <span>Get organised. Be more productive.</span>
+  </div>
+</header>
+<div class="container">
+  <h2 class="detail-row-header">Table of Contents</h2>
+  <div class="detail-row">
+    <div class="detail-row-item">
+      <p>
+        <ol class="toc margin-left">
+          <li>
+            <a href="#1" class="link">Overview</a>
+          </li>
+          <li>
+            <a href="#2" class="link">Single Page Apps and RESTfulness</a>
+          </li>
+          <li>
+            <a href="#3" class="link">DRF: Updating multiple objects</a>
+          </li>
+          <li>
+            <a href="#4" class="link">Redux and UI state</a>
+          </li>
+          <li>
+            <a href="#5" class="link">Spinners and responsiveness in a SPA</a>
+          </li>
+        </ol>
+      </p>
+    </div>
+    <div class="detail-row-item">
+      <p class="alert">
+        For every project I add to Grok My Code, I provide extra information on design decisions, code snippets, technologies used
+        or anything of interest related to the development.
+      </p>
+      <div class="tech-tag-section">
+        <h3>Tech used on this project:</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Django</span>
+          <span class="tech-tag">Django Rest Framework</span>
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">Redux</span>
+          <span class="tech-tag">Javascript</span>
+          <span class="tech-tag">PostgreSQL</span>
+          <div class="tech-tag">HTML</div>
+          <div class="tech-tag">CSS</div>
+          <div class="tech-tag">Nginx</div>
+          <div class="tech-tag">Gunicorn</div>
+          <div class="tech-tag">Linux</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2 id="1" class="detail-row-header">1. Overview</h2>
+  <div class="detail-row">
+    <div class="detail-row-item">
+      <p>
+        Kanban boards aid in the productivity of individuals and teams.
+      </p>
+      <p>
+        I created this app using a completely decoupled front and backend with React and Redux on the frontend connecting to a Django
+        Rest Framework API on the backend.
+      </p>
+      <p>
+        As with all my projects, a test driven development approach was followed.
+      </p>
+      <p>A few key features include:</p>
+      <p>
+        <ul class="margin-left">
+          <li>Multiple boards per user.</li>
+          <li>Column and card (task) creation.</li>
+          <li>Dragging of cards between columns.</li>
+          <li>Dragging of cards within a column to sort / organise them.</li>
+        </ul>
+      </p>
+    </div>
+    <div class="detail-row-item section-filled">
+      <h3>Source code and live demo:</h3>
+      <p>
+        <a href="https://github.com/bdelate/kanban" alt="GitHub" target="_blank" class="link">
+          <img src="{% static 'core/img/github-small.png' %}" alt="GitHub" />
+        </a>
+      </p>
+      <p>
+        <a href="https://kanban.grokmycode.com" alt="Kanban" target="_blank" class="link">
+          kanban.grokmycode.com
+        </a>
+      </p>
+      <hr class="margin-top" />
+      <p>
+        If you're testing the functionality of the demo site, you can either create your own user or simply use the following demo
+        credentials:
+      </p>
+      <p>Username:
+        <b>demo-user</b>
+      </p>
+      <p>Password:
+        <b>demo-password-234</b>
+      </p>
+    </div>
+  </div>
+  <h2 id="2" class="detail-row-header">2. Single Page Apps and RESTfulness</h2>
+  <div class="detail-row">
+    <div class="detail-row-item">
+      <p>
+        With the increasing popularity of SPA's, backend webservers are often used primarily as an API. With that in mind, the
+        <a href="http://www.django-rest-framework.org/" target="_blank" alt="Django Rest Framework" class="link">Django Rest Framework</a>
+        works very well for the creation of a backend API requiring typical CRUD operations.
+      </p>
+      <p>
+        The issue comes when each request from the frontend requires more than simple CRUD operations on a single object. SPA's are
+        highly dynamic and interactive by design, resulting in the need to perform multiple database operations for each
+        frontend action.
+      </p>
+      <p>
+        Added to this issue is the fact that typical RESTFul backends try conform to standard url naming conventions such as
+        <i>
+          <b>/api/cards/</b>
+        </i> and
+        <i>
+          <b>/api/cards/2/</b>.
+        </i>
+      </p>
+    </div>
+    <div class="detail-row-item">
+      <p>
+        The Kanban board involves several cases where this issue arises. For example, the board stores the position of each card
+        within its column, thereby allowing users to sort / organise their cards as they wish.
+      </p>
+      <p>
+        When a user deletes a card from the middle of a column, the backed needs to not only delete the database record, but also
+        update the positions of the remaining cards.
+      </p>
+      <p>
+        There are several ways to handle this, with pro's and con's for each. The following table is just a brief overview and is
+        not meant to cover every step, edge case or implementation detail:
+      </p>
+    </div>
+    <div class="detail-row">
+      <table class="table">
+        <tr>
+          <th></th>
+          <th>Pros</th>
+          <th>Cons</th>
+        </tr>
+        <tr>
+          <td>Perform 2 ajax requests. First send a DELETE request for the card. Upon success, send a PATCH request containing
+            the remaining cards with their updated positions.</td>
+          <td>
+            <ul>
+              <li>Each request is RESTFul</li>
+              <li>Standard urls and HTTP verbs can be used</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Multiple ajax requests for what should be a single atomic action.</li>
+              <li>
+                If an error occurs after the first (DELETE) request such as a disconnect, the client and server are both left in an invalid
+                state.
+              </li>
+              <li>
+                Business / Validation logic is being handled on the frontend (ie: position ids) which is open to manipulation.
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Perform 1 ajax request with all required deletions / updates json encoded in the HTTP data.</td>
+          <td>
+            <ul>
+              <li>Single ajax request.</li>
+              <li>The operation is atomic.</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>
+                The backend is not being used in a strictly RESTFul manor by performing updates / deletes across different objects in one
+                request.
+              </li>
+              <li>
+                Non standard url may be needed. Non standard use of HTTP verbs.
+              </li>
+              <li>
+                Business / validation logic is being handled on the frontend (ie: position ids) which is open to manipulation.
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Perform 1 ajax DELETE request and let the backend figure out what else needs to happen. The response will contain all relevant
+            updates for the remaining cards.
+          </td>
+          <td>
+            <ul>
+              <li>Single ajax request.</li>
+              <li>The operation is atomic.</li>
+              <li>No business / validation logic is handled on the frontend.</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>
+                The backend is not being used in a strictly RESTFul manor by performing updates / deletes across different objects in one
+                request.
+              </li>
+              <li>
+                Non standard url may be needed. Non standard use of HTTP verbs.
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="detail-row">
+    <div class="detail-row-item">
+      <p>
+        In the world of SPA's, the webserver API is not being used as a RESTFul service in the true sense of the term. The backend
+        is not being used by 3rd parties as an API for their own uses, but is instead being used to drive a dynamic frontend.
+      </p>
+      <p>
+        I believe the 3rd option above is generally the way to go when complex non standard CRUD actions are required.
+      </p>
+      <p>
+        There is is always a risk of frontend data manipulation and ultimately the backend is where the final business logic / validation
+        occurs.
+      </p>
+      <p>
+        With that in mind, I used the 3rd approach above for deleting cards on the kanban board as follows:
+      </p>
+      <p>
+        <ol class="margin-left">
+          <li>The frontend sends a single DELETE request for the specified card while displaying a spinner.</li>
+          <li>The backend deletes the specified card.</li>
+          <li>The backend updates the positions for the remaining cards in the column.</li>
+          <li>A response is sent to the frontend containing the updated positions.</li>
+          <li>The relevant cards in the Redux store are updated with the response data.</li>
+        </ol>
+      </p>
+    </div>
+    <div class="detail-row-item">
+      <p>
+        <script src="https://gist.github.com/bdelate/535932b3117a6eadc720ab8adc94929e.js"></script>
+      </p>
+    </div>
+  </div>
+  <h2 id="3" class="detail-row-header">3. DRF: Updating multiple objects</h2>
+  <div class="detail-row">
+    <div class="detail-row-item">
+
+    </div>
+    <div class="detail-row-item">
+
+    </div>
+  </div>
+  <h2 id="4" class="detail-row-header">4. Redux and UI state</h2>
+  <div class="detail-row">
+    <div class="detail-row-item">
+
+    </div>
+    <div class="detail-row-item">
+    </div>
+  </div>
+  <h2 id="5" class="detail-row-header">4. Spinners and responsiveness in a SPA</h2>
+  <div class="detail-row">
+    <div class="detail-row-item">
+
+    </div>
+    <div class="detail-row-item">
+    </div>
+  </div>
+</div>
+{% endblock body %}
