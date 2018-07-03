@@ -23,10 +23,7 @@
             <a href="#3" class="link">DRF: Updating multiple objects</a>
           </li>
           <li>
-            <a href="#4" class="link">Redux and UI state</a>
-          </li>
-          <li>
-            <a href="#5" class="link">Spinners and responsiveness in a SPA</a>
+            <a href="#4" class="link">Spinners and responsiveness in a SPA</a>
           </li>
         </ol>
       </p>
@@ -62,8 +59,8 @@
         Kanban boards aid in the productivity of individuals and teams.
       </p>
       <p>
-        I created this app using a completely decoupled front and backend with React and Redux on the frontend connecting to a Django
-        Rest Framework API on the backend.
+        I created this app using a completely decoupled front and back end with React and Redux on the front end connecting to a
+        Django Rest Framework API on the back end.
       </p>
       <p>
         As with all my projects, a test driven development approach was followed.
@@ -107,17 +104,17 @@
   <div class="detail-row">
     <div class="detail-row-item">
       <p>
-        With the increasing popularity of SPA's, backend webservers are often used primarily as an API. With that in mind, the
+        With the increasing popularity of SPA's, back end web servers are often used primarily as an API. With that in mind, the
         <a href="http://www.django-rest-framework.org/" target="_blank" alt="Django Rest Framework" class="link">Django Rest Framework</a>
-        works very well for the creation of a backend API requiring typical CRUD operations.
+        works very well for the creation of a back end API requiring typical CRUD operations.
       </p>
       <p>
-        The issue comes when each request from the frontend requires more than simple CRUD operations on a single object. SPA's are
-        highly dynamic and interactive by design, resulting in the need to perform multiple database operations for each
-        frontend action.
+        The issue comes when each request from the front end requires more than simple CRUD operations on a single object. SPA's
+        are highly dynamic and interactive by design, resulting in the need to perform multiple database operations for each
+        front end action.
       </p>
       <p>
-        Added to this issue is the fact that typical RESTFul backends try conform to standard url naming conventions such as
+        Added to this issue is the fact that typical RESTFul back ends try conform to standard url naming conventions such as
         <i>
           <b>/api/cards/</b>
         </i> and
@@ -164,7 +161,7 @@
                 state.
               </li>
               <li>
-                Business / Validation logic is being handled on the frontend (ie: position ids) which is open to manipulation.
+                Business / Validation logic is being handled on the front end (ie: position ids) which is open to manipulation.
               </li>
             </ul>
           </td>
@@ -180,38 +177,38 @@
           <td>
             <ul>
               <li>
-                The backend is not being used in a strictly RESTFul manor by performing updates / deletes across different objects in one
+                The back end is not being used in a strictly RESTFul manor by performing updates / deletes across different objects in one
                 request.
               </li>
               <li>
                 Non standard url may be needed. Non standard use of HTTP verbs.
               </li>
               <li>
-                Business / validation logic is being handled on the frontend (ie: position ids) which is open to manipulation.
+                Business / validation logic is being handled on the front end (ie: position ids) which is open to manipulation.
               </li>
             </ul>
           </td>
         </tr>
         <tr>
           <td>
-            Perform 1 ajax DELETE request and let the backend figure out what else needs to happen. The response will contain all relevant
+            Perform 1 ajax DELETE request and let the back end figure out what else needs to happen. The response will contain all relevant
             updates for the remaining cards.
           </td>
           <td>
             <ul>
               <li>Single ajax request.</li>
               <li>The operation is atomic.</li>
-              <li>No business / validation logic is handled on the frontend.</li>
+              <li>No business / validation logic is handled on the front end.</li>
             </ul>
           </td>
           <td>
             <ul>
               <li>
-                The backend is not being used in a strictly RESTFul manor by performing updates / deletes across different objects in one
+                The back end is not being used in a strictly RESTFul manor by performing updates / deletes across different objects in one
                 request.
               </li>
               <li>
-                Non standard url may be needed. Non standard use of HTTP verbs.
+                Non standard use of HTTP verbs.
               </li>
             </ul>
           </td>
@@ -222,25 +219,25 @@
   <div class="detail-row">
     <div class="detail-row-item">
       <p>
-        In the world of SPA's, the webserver API is not being used as a RESTFul service in the true sense of the term. The backend
-        is not being used by 3rd parties as an API for their own uses, but is instead being used to drive a dynamic frontend.
+        In the world of SPA's, the web server API is not used as a RESTFul service in the true sense of the term. The back end is
+        not being used by 3rd parties as an API for their own uses, but is instead being used to drive a dynamic front end.
       </p>
       <p>
         I believe the 3rd option above is generally the way to go when complex non standard CRUD actions are required.
       </p>
       <p>
-        There is is always a risk of frontend data manipulation and ultimately the backend is where the final business logic / validation
-        occurs.
+        There is is always a risk of front end data manipulation and ultimately the back end is where the final business logic /
+        validation occurs.
       </p>
       <p>
         With that in mind, I used the 3rd approach above for deleting cards on the kanban board as follows:
       </p>
       <p>
         <ol class="margin-left">
-          <li>The frontend sends a single DELETE request for the specified card while displaying a spinner.</li>
-          <li>The backend deletes the specified card.</li>
-          <li>The backend updates the positions for the remaining cards in the column.</li>
-          <li>A response is sent to the frontend containing the updated positions.</li>
+          <li>The front end sends a single DELETE request for the specified card while displaying a spinner.</li>
+          <li>The back end deletes the specified card.</li>
+          <li>The back end updates the positions for the remaining cards in the column.</li>
+          <li>A response is sent to the front end containing the updated positions.</li>
           <li>The relevant cards in the Redux store are updated with the response data.</li>
         </ol>
       </p>
@@ -254,26 +251,80 @@
   <h2 id="3" class="detail-row-header">3. DRF: Updating multiple objects</h2>
   <div class="detail-row">
     <div class="detail-row-item">
-
+      <p>
+        Django Rest Framework (DRF) provides multiple object creation out of the box through the
+        <i>
+          <b>many=True</b>
+        </i>
+        argument when instantiating a
+        <i>
+          <b>ListSerializer.</b>
+        </i>
+      </p>
+      <p>
+        The behavior of the object creations can be customised by implementing a
+        <i>
+          <b>create()</b>
+        </i> method in the serializer.
+      </p>
+      <p>
+        When updating multiple objects, DRF does not provide default behavior since the expected behavior for every update is not
+        always the same (ie: there is no safe default use case).
+      </p>
+      <p>
+        Therefore when updating multiple objects, a custom
+        <i>
+          <b>update()</b>
+        </i> method must be implemented on the serializer.
+      </p>
+      <p>
+        The following snippet is my implementation of a custom multi object
+        <i>
+          <b>update()</b>
+        </i> method for Kanban cards (eg: when their positions change).
+      </p>
     </div>
     <div class="detail-row-item">
-
+      <p>
+        <script src="https://gist.github.com/bdelate/cfa154b880b5ff0bba3bda05e51cb534.js"></script>
+      </p>
     </div>
   </div>
-  <h2 id="4" class="detail-row-header">4. Redux and UI state</h2>
+  <h2 id="4" class="detail-row-header">4. Spinners and responsiveness in a SPA</h2>
   <div class="detail-row">
     <div class="detail-row-item">
-
+      <p>
+        Single Page Apps are largely about responsiveness and user interactivity. With this in mind, there are decisions to be made
+        with respect to when the user interface should be updated in response to user actions.
+      </p>
+      <p>
+        This is especially important to consider when user actions affect the back end. You have the choice to either update the
+        UI immediately before the back end has been updated, or display a front end spinner until a response has been received
+        from the back end.
+      </p>
+      <p>
+        If the UI is updated immediately, the user gets a very snappy, responsive experience however you risk violating the
+        <a href="https://en.wikipedia.org/wiki/Principle_of_least_astonishment" alt="Principle of least astonishment" target="link"
+          class="link">Principle of least astonishment.</a>
+      </p>
+      <p>
+        An example of this would be a user deleting a UI component only to see it
+        <i>magically</i> reappear soon after if there is a problem with the request.
+      </p>
+      <p>
+        A better approach in my opinion is to use spinners (for almost all) user actions that require back end communication. The
+        UI is updated immediately with a spinner, informing the user that something is happening. When the back end response
+        is received, the UI is updated accordingly.
+      </p>
+      <p>
+        The following Javascript snippet illustrates using this technique when deleting a Kanban card and updating the Redux store
+        accordingly.
+      </p>
     </div>
     <div class="detail-row-item">
-    </div>
-  </div>
-  <h2 id="5" class="detail-row-header">4. Spinners and responsiveness in a SPA</h2>
-  <div class="detail-row">
-    <div class="detail-row-item">
-
-    </div>
-    <div class="detail-row-item">
+      <p>
+        <script src="https://gist.github.com/bdelate/b0a7f23499ac00339625dde464ac2eb7.js"></script>
+      </p>
     </div>
   </div>
 </div>
