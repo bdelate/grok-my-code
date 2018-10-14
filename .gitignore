@@ -1,4 +1,5 @@
 *.pyc
-grokmycode/grokmycode/settings/dev.py
+.mypy_cache/
+.vscode/
 grokmycode/grokmycode/settings/live.py
 server-setup/
