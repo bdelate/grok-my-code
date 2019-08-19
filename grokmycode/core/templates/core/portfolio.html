@@ -15,12 +15,14 @@
     <div class="card-container">
         <div class="card">
             <div class="card-left">
-                <img src="{% static 'core/img/diversifyportfolio/chart.png' %}" alt="Diversify Portfolio card image" class="card-image">
+                <img src="{% static 'core/img/diversifyportfolio/chart.png' %}" alt="Diversify Portfolio card image"
+                    class="card-image">
             </div>
             <div class="card-right">
                 <h2>Diversify Portfolio</h2>
                 <p>
-                    Diversify Portfolio allows investors to analyze their stock portfolios and look for opportunities using several interactive
+                    Diversify Portfolio allows investors to analyze their stock portfolios and look for opportunities
+                    using several interactive
                     tools.
                 </p>
                 <p>A few key features include:</p>
@@ -41,12 +43,38 @@
     <div class="card-container">
         <div class="card">
             <div class="card-left">
+                <img src="{% static 'core/img/datatosite/card.svg' %}" alt="Data to Site card image"
+                    class="card-image">
+            </div>
+            <div class="card-right">
+                <h2>Data to Site</h2>
+                <p>
+                    Data to Site turns spreadsheet data into great looking cards on your website.
+                </p>
+                <p>A few key features include:</p>
+                <ul class="margin-left margin-top">
+                    <li>Card customization using a visual designer.</li>
+                    <li>No coding required by the user.</li>
+                    <li>Can be powered by any csv data source.</li>
+                    <li>Data on the users site updates automatically when spreadsheet data is added / removed.</li>
+                    <li>Card filter / search</li>
+                </ul>
+                <p class="card-footer">
+                    <a href="{% url 'core:datatosite' %}" class="card-link">More detail...</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="card-container">
+        <div class="card">
+            <div class="card-left">
                 <img src="{% static 'core/img/kanban/card.png' %}" alt="Kanban card image" class="card-image">
             </div>
             <div class="card-right">
                 <h2>Kanban Board</h2>
                 <p>
-                    This is a Kanban board implemented as a SPA using React and Redux on the front end with Django Rest Framework on the back
+                    This is a Kanban board implemented as a SPA using React and Redux on the front end with Django Rest
+                    Framework on the back
                     end.
                 </p>
                 <p>A few key features include:</p>

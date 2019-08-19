@@ -101,6 +101,18 @@ li:not(:last-child) {
   background-repeat: no-repeat;
 }
 
+.bg-datatosite {
+  background: linear-gradient(
+      to right,
+      rgba(119, 170, 173, 0.9),
+      rgba(136, 138, 199, 0.5)
+    ),
+    url('/static/core/img/datatosite/banner.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .nav {
   z-index: 100;
   top: 0;
@@ -323,6 +335,10 @@ a:hover,
 .card-link:hover {
   cursor: pointer;
   background-color: #78aaad;
+}
+
+.card-image {
+  max-width: 100%;
 }
 
 @media (max-width: 650px) {

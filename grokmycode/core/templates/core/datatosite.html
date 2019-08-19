@@ -1,0 +1,76 @@
+{% extends parent_template|default:"core/base.html" %} {% load staticfiles %} {% block body %}
+<header class="hero bg-datatosite">
+    <div class="row">
+        <h1>Data to Site</h1>
+    </div>
+    <div class="row">
+        <span>Easily turn your spreadsheet data into great looking cards on your website.</span>
+    </div>
+</header>
+<div class="container">
+    <h2 class="detail-row-header">Table of Contents</h2>
+    <div class="detail-row">
+        <div class="detail-row-item">
+            <p>
+                <ol class="toc margin-left">
+                    <li>
+                        <a href="#1" class="link">Overview</a>
+                    </li>
+                </ol>
+            </p>
+        </div>
+        <div class="detail-row-item">
+            <div class="tech-tag-section">
+                <h3>Tech used on this project:</h3>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">Django Rest Framework</span>
+                    <span class="tech-tag">Vue.js</span>
+                    <span class="tech-tag">Javascript</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <div class="tech-tag">HTML</div>
+                    <div class="tech-tag">CSS</div>
+                    <div class="tech-tag">Nginx</div>
+                    <div class="tech-tag">Gunicorn</div>
+                    <div class="tech-tag">Linux</div>
+                    <div class="tech-tag">Docker</div>
+                    <div class="tech-tag">Anisble</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 id="1" class="detail-row-header">1. Overview</h2>
+    <div class="detail-row">
+        <div class="detail-row-item">
+            <p>
+                Data to Site allows users to emded cards into their website that are powered by
+                spreadsheet data.
+            </p>
+            <p>
+                When they add / remove data from their spreadsheet, the cards on their website
+                are automatically updated. This allows users without programming knowledge to
+                customize their cards and keep their website up to date.
+            </p>
+            <p>A few key features include:</p>
+            <p>
+                <ul class="margin-left">
+                    <li>Card customization using a visual designer.</li>
+                    <li>No coding required by the user.</li>
+                    <li>Can be powered by any csv data source.</li>
+                    <li>Data on the users site updates automatically when spreadsheet data is added / removed.</li>
+                    <li>Card filter / search</li>
+                </ul>
+            </p>
+        </div>
+        <div class="detail-row-item section-filled">
+            <h3>Live site:</h3>
+            <p>
+                <a href="https://www.datatosite.com" alt="Data to Site" target="_blank" class="link">
+                    www.datatosite.com
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock body %}

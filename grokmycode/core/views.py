@@ -8,50 +8,56 @@ from smtplib import SMTPException
 
 class Home(TemplateView):
 
-    template_name = 'core/index.html'
-    extra_context = {'active_link': 'about'}
+    template_name = "core/index.html"
+    extra_context = {"active_link": "about"}
 
 
 class Portfolio(TemplateView):
 
-    template_name = 'core/portfolio.html'
-    extra_context = {'active_link': 'portfolio'}
+    template_name = "core/portfolio.html"
+    extra_context = {"active_link": "portfolio"}
 
 
 class Contact(FormView):
 
     form_class = ContactForm
-    template_name = 'core/contact.html'
-    extra_context = {'active_link': 'contact'}
+    template_name = "core/contact.html"
+    extra_context = {"active_link": "contact"}
 
     def form_valid(self, form):
-        message = 'Sender email: {}\n\n{}'.format(
-            form.cleaned_data.get('email'),
-            form.cleaned_data.get('message'))
+        message = "Sender email: {}\n\n{}".format(
+            form.cleaned_data.get("email"), form.cleaned_data.get("message")
+        )
         try:
-            send_mail(subject='Email from Grok My Code',
-                      message=message,
-                      from_email=settings.DEFAULT_FROM_EMAIL,
-                      recipient_list=[settings.DEFAULT_FROM_EMAIL])
+            send_mail(
+                subject="Email from Grok My Code",
+                message=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.DEFAULT_FROM_EMAIL],
+            )
         except SMTPException:
-            self.extra_context['email_result'] = 'error'
+            self.extra_context["email_result"] = "error"
         else:
-            self.extra_context['email_result'] = 'success'
-        return render(self.request,
-                      'core/contact_done.html',
-                      self.get_context_data())
+            self.extra_context["email_result"] = "success"
+        return render(self.request, "core/contact_done.html", self.get_context_data())
 
 
 class DiversifyPortfolio(TemplateView):
 
-    template_name = 'core/diversifyportfolio.html'
+    template_name = "core/diversifyportfolio.html"
 
 
 class Kanban(TemplateView):
 
-    template_name = 'core/kanban.html'
+    template_name = "core/kanban.html"
 
 
 class WhoKnows(TemplateView):
 
-    template_name = 'core/whoknows.html'
+    template_name = "core/whoknows.html"
+
+
+class DataToSite(TemplateView):
+
+    template_name = "core/datatosite.html"
+
